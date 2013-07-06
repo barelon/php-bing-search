@@ -447,3 +447,98 @@ class Thumbnail
     }
 
 }
+
+/**
+ * Video Result Class
+ * @author drahot & barelon
+ */
+class VideoResult
+{
+
+    private $id;
+    private $title;
+    private $mediaUrl;
+    private $displayUrl;
+    private $runTime;
+    private $thumbnail;
+
+    /**
+     * Constructor
+     * @param stdClass $videoObj
+     * @return void
+     */
+    public function __construct($videoObj)
+    {
+        $this->id = $videoObj->ID;
+        $this->title = $videoObj->Title;
+        $this->mediaUrl = $videoObj->MediaUrl;
+        $this->displayUrl = $videoObj->DisplayUrl;
+        $this->runTime = $videoObj->RunTime;
+        $this->thumbnail = new Thumbnail($videoObj);
+    }
+
+    /**
+     * Get Id
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get Title
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Get MediaUrl
+     * @return string
+     */
+    public function getMediaUrl()
+    {
+        return $this->mediaUrl;
+    }
+
+    /**
+     * Get DisplayUrl
+     * @return string
+     */
+    public function getDisplayUrl()
+    {
+        return $this->displayUrl;
+    }
+
+    /**
+     * Get Run Time
+     * @return int
+     */
+    public function getRunTime()
+    {
+        return $this->runTime;
+    }
+
+    /**
+     * Get Thumbnail
+     * @return Thumbnail
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    /**
+     * toString Magic Method
+     * @return string
+     */
+    public function __toString()
+    {
+        return sprintf("%s %s", $this->id, $this->mediaUrl);
+    }
+
+}
+
