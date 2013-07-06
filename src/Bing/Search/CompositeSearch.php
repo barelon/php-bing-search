@@ -39,7 +39,7 @@ class CompositeSearch extends Search
      * @param array $services
      * @return CompositeSearch
      */
-    public function setSearchService(array $services)
+    public function setSearchServices(array $services)
     {
         $checkServices = array('Web', 'Image','Video','News','Spell','RelatedSearch');
         foreach ($services as $service) {
