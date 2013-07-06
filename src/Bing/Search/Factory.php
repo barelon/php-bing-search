@@ -75,6 +75,20 @@ class Factory
     }
 
     /**
+     * Create Video Search Instance
+     * @param string $query
+     * @param int $page
+     * @param int $limit
+     * @return Bing\Search\VideoSearch
+     */
+    public function createVideoSearch($query, $page = 1, $limit = 50)
+    {
+        $client = new Client(self::BING_API_BASE_URL, $this->accountKey);
+        $search = new VideoSearch($client, $query, $page, $limit);
+        return $search;
+    }
+
+    /**
      * Get AccountKey
      * @return string
      */
