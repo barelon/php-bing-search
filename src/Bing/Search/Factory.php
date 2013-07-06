@@ -61,6 +61,20 @@ class Factory
     }
 
     /**
+     * Create Composite Search Instance
+     * @param string $query
+     * @param int $page
+     * @param int $limit
+     * @return Bing\Search\CompositeSearch
+     */
+    public function createCompositeSearch($query, $page = 1, $limit = 50)
+    {
+        $client = new Client(self::BING_API_BASE_URL, $this->accountKey);
+        $search = new CompositeSearch($client, $query, $page, $limit);
+        return $search;
+    }
+
+    /**
      * Get AccountKey
      * @return string
      */
