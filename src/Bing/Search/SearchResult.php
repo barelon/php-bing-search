@@ -474,7 +474,9 @@ class VideoResult
         $this->mediaUrl = $videoObj->MediaUrl;
         $this->displayUrl = $videoObj->DisplayUrl;
         $this->runTime = $videoObj->RunTime;
-        $this->thumbnail = new Thumbnail($videoObj);
+        if (isset($videoObj->Thumbnail)) {
+            $this->thumbnail = new Thumbnail($videoObj);
+        }
     }
 
     /**
