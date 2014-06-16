@@ -544,3 +544,47 @@ class VideoResult
 
 }
 
+class CompositeResult
+{
+
+    private $web =  array();
+    private $image = array();
+    private $video = array();
+
+    function __construct($obj)
+    {
+        $classnameWeb = __NAMESPACE__.'\\'.'WebResult';
+        foreach ($obj->Web as $web) {
+           $this->web[] = new $classnameWeb ($web);
+        }
+
+        $classnameImage = __NAMESPACE__.'\\'.'ImageResult';
+        foreach ($obj->Image as $image) {
+           $this->image[] = new $classnameImage ($image);
+        }
+
+        $classnameVideo = __NAMESPACE__.'\\'.'VideoResult';
+        foreach ($obj->Video as $video) {
+           $this->video[] = new $classnameVideo ($video);
+        }
+    }
+
+    public function getWeb()
+    {
+        return $this->web;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
+}
+
+
+
