@@ -39,6 +39,7 @@ class SearchResult implements ArrayAccess, Iterator, Countable
         }
         $classname = __NAMESPACE__.'\\'.ucfirst($searchType).'Result';
         $this->container = array();
+
         foreach ($jsonObject->d->results as $obj) {
             $resultObj = new $classname($obj);
             $this->container[] = $resultObj;
@@ -550,6 +551,7 @@ class CompositeResult
     private $web =  array();
     private $image = array();
     private $video = array();
+    private $news = array();
 
     function __construct($obj)
     {
@@ -567,6 +569,11 @@ class CompositeResult
         foreach ($obj->Video as $video) {
            $this->video[] = new $classnameVideo ($video);
         }
+
+        $classnameNews = __NAMESPACE__.'\\'.'NewsResult';
+        foreach ($obj->News as $news) {
+           $this->news[] = new $classnameNews ($news);
+        }
     }
 
     public function getWeb()
@@ -582,6 +589,128 @@ class CompositeResult
     public function getVideo()
     {
         return $this->video;
+    }
+
+    public function getNews()
+    {
+       return $this->news;
+    }
+}
+
+
+
+/**
+ * News Result Class
+ * @author drahot & krlvisual
+ */
+class NewsResult
+{
+
+    private $id;
+    private $title;
+    private $url;
+    private $description;
+    private $date;
+    private $source;
+    private $breakingNews;
+
+    /**
+     * Constructor
+     * @param stdClass $imageObj
+     * @return void
+     */
+    public function __construct($imageObj)
+    {
+        $this->id = $imageObj->ID;
+        if (property_exists($imageObj, 'Title')) {
+            $this->title = $imageObj->Title;
+        }
+        if (property_exists($imageObj,'Url')) {
+            $this->url = $imageObj->Url;
+        }
+        if (property_exists($imageObj, 'Snippet')) {
+            $this->description = $imageObj->Snippet;
+        }
+        if (property_exists($imageObj,'Date')) {
+            $this->date = $imageObj->Date;
+        }
+        if (property_exists($imageObj,'Source')) {
+            $this->source = $imageObj->Source;
+        }
+        if (property_exists($imageObj, 'BreakingNews')) {
+            $this->breakingNews = $imageObj->BreakingNews;
+        }
+    }
+
+    /**
+     * Get Id
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get Title
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+
+    /**
+     * Get SourceUrl
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBreakingNews()
+    {
+        return $this->breakingNews;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+
+
+    /**
+     * toString Magic Method
+     * @return string
+     */
+    public function __toString()
+    {
+        return sprintf("%s %s", $this->id, $this->sourceUrl);
     }
 
 }
