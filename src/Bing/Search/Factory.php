@@ -89,6 +89,20 @@ class Factory
     }
 
     /**
+     * Create News Search Instance
+     * @param string $query
+     * @param int $page
+     * @param int $limit
+     * @return Bing\Search\NewsSearch
+     */
+    public function createNewsSearch($query, $page = 1, $limit = 50)
+    {
+        $client = new Client(self::BING_API_BASE_URL, $this->accountKey);
+        $search = new NewsSearch($client, $query, $page, $limit);
+        return $search;
+    }
+
+    /**
      * Get AccountKey
      * @return string
      */
